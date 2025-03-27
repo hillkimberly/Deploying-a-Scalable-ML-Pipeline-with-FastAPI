@@ -7,8 +7,10 @@ Working in a command line environment is recommended for ease of use with git an
 ## Repositories
 * Create a directory for the project and initialize git.
     * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
+* Connect your local git repo to GitHub - https://github.com/hillkimberly/Deploying-a-Scalable-ML-Pipeline-with-FastAPI
+
+* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error - https://github.com/hillkimberly/Deploying-a-Scalable-ML-Pipeline-with-FastAPI/actions
+
     * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
 
 # Data
