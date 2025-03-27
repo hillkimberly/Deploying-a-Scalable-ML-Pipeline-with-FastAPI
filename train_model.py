@@ -16,6 +16,7 @@ from ml.model import (
 project_path = "/home/kimh/Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
 data_path = os.path.join(project_path, "data", "census.csv")
 print(data_path)
+
 # data = None # your code here
 data = pd.read_csv(data_path)
 

@@ -7,6 +7,10 @@ from pydantic import BaseModel, Field
 from ml.data import apply_label, process_data
 from ml.model import inference, load_model
 
+# Define project path consistently across scripts
+project_path = "/home/kimh/Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
+
+
 # DO NOT MODIFY
 class Data(BaseModel):
     age: int = Field(..., example=37)
@@ -27,12 +31,12 @@ class Data(BaseModel):
     native_country: str = Field(..., example="United-States", alias="native-country")
 
 # path = None # TODO: enter the path for the saved encoder 
-path = os.path.join(project_path, "model", "encoder.pkl")
-encoder = load_model(path)
+encoder_path = os.path.join(project_path, "model", "encoder.pkl")
+encoder = load_model(encoder_path)
 
 # path = None # TODO: enter the path for the saved model 
-path = os.path.join(project_path, "model", "model.pkl")
-model = load_model(path)
+model_path = os.path.join(project_path, "model", "model.pkl")
+model = load_model(model_path)
 
 # TODO: create a RESTful API using FastAPI
 # app = None # your code here
@@ -49,7 +53,7 @@ async def get_root():
     """ Return a welcome message """
     return {"message": "Welcome to the income prediction model API!"}
 
-    pass
+    # pass ##KIM REMOVED BECAUSE OF RETURN STATEMENT
 
 
 # TODO: create a POST on a different path that does model inference
@@ -80,12 +84,18 @@ async def post_inference(data: Data):
         # use data as data input
         # use training = False
         # do not need to pass lb as input
-        data_df,
+        data,
         categorical_features=cat_features,
         label=None,  # No label needed for inference
         training=False,  # We're not training, just inferring
         encoder=encoder,
         lb=None  # No label binarizer needed for inference
     )
-    _inference = None # your code here to predict the result using data_processed
+
+    # _inference = None # your code here to predict the result using data_processed
+
+    # Use the inference function to predict the result
+    _inference = inference(model, data_processed)
+
+    # Apply label to the prediction (convert binary output to human-readable format)
     return {"result": apply_label(_inference)}
