@@ -101,3 +101,6 @@ This project includes a GitHub Actions workflow for automatic linting and testin
 Kimberly Hill
 📌 GitHub Portfolio - https://hillkimberly.github.io/
 🔗 LinkedIn - https://www.linkedin.com/in/kimberlyhill-dataanalyst/
+
+📄 License
+This project is for educational and portfolio purposes using publicly available data.
