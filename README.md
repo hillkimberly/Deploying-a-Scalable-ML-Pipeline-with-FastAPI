@@ -1,31 +1,103 @@
-Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
+# 🚀 Deploying a Scalable ML Pipeline with FastAPI
 
-# Environment Set up (pip or conda)
-* Option 1: use the supplied file `environment.yml` to create a new environment with conda
-* Option 2: use the supplied file `requirements.txt` to create a new environment with pip
-    
-## Repositories
-* Create a directory for the project and initialize git.
-    * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub - https://github.com/hillkimberly/Deploying-a-Scalable-ML-Pipeline-with-FastAPI
+This project demonstrates how to build, train, and deploy a machine learning pipeline using **FastAPI** and **MLflow**. It includes reusable components for model training, inference, evaluation, and deployment via an API. The goal is to deliver real-time predictions through a reliable and scalable interface.
 
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error - https://github.com/hillkimberly/Deploying-a-Scalable-ML-Pipeline-with-FastAPI/actions
+---
 
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
+## 📌 Project Highlights
 
-# Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
+- Trains a classification model using U.S. Census Income Data
+- Logs models and artifacts with **MLflow**
+- Serves predictions through a **FastAPI** REST API
+- Evaluates model fairness using **performance on categorical slices**
+- CI/CD integrated using **GitHub Actions**
+- Includes automated testing with **pytest** and code linting with **flake8**
 
-# Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
+---
 
-# API Creation
-*  Create a RESTful API using FastAPI this must implement:
-    * GET on the root giving a welcome message.
-    * POST that does model inference.
+## 📂 Folder Structure
+
+
+
+├── main.py # FastAPI application
+├── train_model.py # Train and save model artifacts
+├── inference.py # Run model inference
+├── performance_on_categorical_slice.py # Evaluate performance on slices
+├── model/
+│ ├── model.pkl
+│ ├── encoder.pkl
+│ └── label_binarizer.pkl
+├── tests/ # Unit tests
+├── slice_output.txt # Output of slice performance analysis
+├── requirements.txt
+├── .github/workflows/ # GitHub Actions workflow files
+└── README.md
+
+
+---
+
+## 🔍 Dataset
+
+This project uses publicly available data from the [U.S. Census Bureau](https://www.census.gov/).  
+The dataset includes demographic and employment features, and the task is to classify whether an individual's income exceeds $50K per year.
+
+Example features:
+- Age, education, marital status
+- Occupation, hours-per-week, sex, native country
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repo**
+   ```bash
+git clone https://github.com/hillkimberly/Deploying-a-Scalable-ML-Pipeline-with-FastAPI.git
+cd Deploying-a-Scalable-ML-Pipeline-with-FastAPI
+
+2.  Install dependencies
+   pip install -r requirements.txt
+
+3. Train the model
+   python train_model.py
+
+4. Start the FastAPI Server
+   uvicorn main:app --reload
+
+Access the interactive Swagger UI at http://127.0.0.1:8000/docs
+```
+
+🧪 Example API Input
+POST /predict
+#json
+
+{
+  "age": 38,
+  "workclass": "Private",
+  "education": "Masters",
+  "marital_status": "Single",
+  "occupation": "Tech-support",
+  "relationship": "Not-in-family",
+  "race": "White",
+  "sex": "Female",
+  "hours_per_week": 40,
+  "native_country": "United-States"
+}
+
+Response:
+#json
+{
+  "prediction": "<=50K"
+}
+
+✅ Testing & CI/CD
+To run tests:
+#bash
+pytest
+flake8 .
+
+This project includes a GitHub Actions workflow for automatic linting and testing on every push.
+
+👩‍💻 Author
+Kimberly Hill
+📌 GitHub Portfolio - https://hillkimberly.github.io/
+🔗 LinkedIn - https://www.linkedin.com/in/kimberlyhill-dataanalyst/
